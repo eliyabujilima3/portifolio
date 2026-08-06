@@ -1,0 +1,43 @@
+// Prisma schema for the portfolio backend.
+//
+// Defaults to SQLite for zero-config local development — the whole
+// database is a single file at prisma/dev.db, so there's nothing to
+// install or configure to get started.
+//
+// To use MySQL or PostgreSQL instead (e.g. for production on
+// Railway / Supabase / Neon / Render):
+//   1. Change `provider` below to "postgresql" or "mysql".
+//   2. Set DATABASE_URL in your .env to that database's connection string.
+//   3. Run `npm run prisma:migrate` again to (re)create the tables.
+// No application code needs to change — Prisma abstracts the SQL dialect.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}
