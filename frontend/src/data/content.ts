@@ -10,11 +10,11 @@ import type {
 } from "../types";
 
 /**
- * ─────────────────────────────────────────────────────────────
+ * ────────────────────────────────────────────────────────────────────────────
  *  EDIT ME: This file holds every piece of text/content shown on
  *  the site. Replace placeholder values (marked "[Placeholder]")
  *  with real details, then swap the sample images/links.
- * ─────────────────────────────────────────────────────────────
+ * ────────────────────────────────────────────────────────────────────────────
  */
 
 export const profile = {
@@ -43,8 +43,8 @@ export const profile = {
 
 export const about = {
   bio: [
-    "I'm a third-year Data Science undergraduate at the Eastern Africa Statistical Training Centre (EASTC), Tanzania, with hands-on experience across machine learning, data analysis, and full-stack software development.",
-    "My work spans predictive modelling on real-world datasets, building web applications end-to-end, and translating messy data into decisions people can act on. I've put these skills to the test in competitive challenges hosted on Zindi, and through practical training in applied machine learning.",
+    "I'm a third-year Data Science undergraduate at the Eastern Africa Statistical Training Centre (EASTC), Tanzania, with hands-on experience across machine learning, data analysis, and full-stac...",
+    "My work spans predictive modelling on real-world datasets, building web applications end-to-end, and translating messy data into decisions people can act on. I've put these skills to the test...",
     "I care about building things that are useful, well-engineered, and easy to maintain — whether that's a forecasting model, a dashboard, or the API behind it.",
   ],
   mission:
@@ -61,7 +61,6 @@ export const about = {
 export const stats: StatItem[] = [
   { label: "Projects Completed", value: 8, suffix: "+" },
   { label: "Competitions Entered", value: 5, suffix: "+" },
-  { label: "Years of Experience", value: 1, suffix: "+" },
   { label: "Certifications", value: 2, suffix: "" },
 ];
 
