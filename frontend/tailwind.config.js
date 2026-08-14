@@ -9,11 +9,11 @@ export default {
         body: ["Inter", "sans-serif"],
       },
       colors: {
-        navy: {
-          DEFAULT: "#7c8699",
-          light: "#7e8799",
-          dark: "#57668a",
-        },
+        navy: '#0F172A',
+        teal: '#14B8A6',
+        pageWhite: '#F8FAFC',
+        slateGray: '#64748B',
+        // preserve existing royal color used in the project
         royal: {
           DEFAULT: "#7a87b8",
           light: "#626c8f",
