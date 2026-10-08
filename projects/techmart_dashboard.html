@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>TechMart Sales Dashboard</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#eef2f7;--card:#fff;--tx:#1f3a5f;--mu:#667085;--navy:#1f3a5f;--teal:#2a9d8f;--gold:#e9c46a;--grid:rgba(0,0,0,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1823;--card:#182536;--tx:#e8eef6;--mu:#9fb0c4;--navy:#6ea8e6;--grid:rgba(255,255,255,.12)}}
+:root[data-theme="dark"]{--bg:#0f1823;--card:#182536;--tx:#e8eef6;--mu:#9fb0c4;--navy:#6ea8e6;--grid:rgba(255,255,255,.12)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Arial,Helvetica,sans-serif}
+header{background:#1f3a5f;color:#fff;padding:18px 20px}header h1{margin:0;font-size:clamp(18px,4vw,26px)}header p{margin:4px 0 0;opacity:.8;font-size:13px}
+main{max-width:1150px;margin:0 auto;padding:16px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px;font-weight:bold}
+select{font:inherit;padding:8px 12px;border-radius:8px;border:2px solid var(--teal);background:var(--card);color:var(--tx)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.k{background:var(--card);border-top:4px solid var(--teal);border-radius:8px;padding:12px;text-align:center}
+.k small{color:var(--mu);font-weight:bold;font-size:11px}.k b{display:block;font-size:26px;margin-top:6px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.c{background:var(--card);border-radius:8px;padding:12px}.c h2{margin:0 0 8px;font-size:14px}.c div{position:relative;height:260px}.w{grid-column:1/-1}
+footer{color:var(--mu);font-size:12px;margin-top:14px}
+</style></head><body>
+<header><h1>Sales Performance Dashboard | TechMart Tanzania - FY2025</h1><p>Interactive version of the Excel project. Sample (fictional) data: 240 orders, Jan-Dec 2025.</p></header>
+<main>
+<div class="bar"><label for="rg">Region:</label><select id="rg"></select></div>
+<div class="kpis" id="kp"></div>
+<div class="g">
+<div class="c"><h2>Monthly Revenue &amp; Profit (TSh)</h2><div><canvas id="c1"></canvas></div></div>
+<div class="c"><h2>Revenue by Region (all regions)</h2><div><canvas id="c2"></canvas></div></div>
+<div class="c"><h2>Revenue by Product (TSh)</h2><div><canvas id="c3"></canvas></div></div>
+<div class="c"><h2>Revenue Share by Category</h2><div><canvas id="c4"></canvas></div></div>
+<div class="c w"><h2>Revenue by Salesperson (TSh)</h2><div><canvas id="c5"></canvas></div></div>
+</div>
+<footer>M = millions, K = thousands. Revenue = Units x Price; Profit = Units x (Price - Cost); Margin = Profit / Revenue. Charts update when you change the region.</footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const RG=["Dar es Salaam","Arusha","Mwanza","Dodoma","Mbeya"],PE=["Amina Juma","Baraka Mushi","Neema Peter","Said Hassan","Grace Mollel","Joseph Kimaro"],MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],CA=["Mobile","Computing","Accessories"];
+const P=[["Smartphone", 450000, 340000, "Mobile"], ["Laptop", 1400000, 1100000, "Computing"], ["Headphones", 90000, 55000, "Accessories"], ["Smartwatch", 180000, 120000, "Accessories"], ["Tablet", 600000, 460000, "Computing"], ["Power Bank", 45000, 28000, "Accessories"]];const R=[[0,1,0,4,11],[0,2,0,1,10],[0,0,4,0,4],[0,1,3,3,6],[0,2,5,5,1],[0,3,0,0,7],[0,1,0,1,4],[0,1,2,0,5],[0,0,2,5,9],[0,4,5,1,1],[0,1,0,3,8],[0,1,5,3,3],[0,0,0,5,8],[0,2,5,3,9],[0,0,0,0,5],[0,0,2,2,9],[0,1,0,4,10],[0,0,0,1,9],[0,2,0,1,2],[1,0,2,4,10],[1,1,0,4,2],[1,4,2,1,6],[1,0,3,3,6],[1,0,0,2,11],[1,0,5,4,2],[1,0,5,1,2],[1,4,2,0,3],[1,0,5,3,6],[1,0,5,5,12],[1,3,2,2,11],[1,4,5,1,2],[1,3,0,1,2],[1,0,0,2,10],[1,3,0,4,11],[1,0,2,3,1],[1,0,5,1,1],[1,0,3,3,5],[1,2,2,0,7],[1,4,0,4,12],[1,2,0,1,6],[1,0,2,0,1],[1,2,5,5,4],[1,4,0,3,9],[1,0,5,1,12],[1,4,5,0,3],[1,3,0,3,6],[2,3,4,2,6],[2,0,0,0,12],[2,0,5,3,4],[2,0,1,5,2],[2,0,0,0,6],[2,1,5,4,5],[2,0,2,0,9],[2,0,0,2,5],[2,1,0,5,10],[2,2,4,4,4],[2,0,0,0,10],[2,1,3,4,1],[2,3,3,1,12],[2,4,2,2,2],[2,3,3,5,11],[2,0,5,3,9],[2,0,1,1,6],[2,4,0,5,11],[2,2,4,2,2],[3,0,2,1,1],[3,2,2,2,10],[3,2,2,4,8],[3,0,2,0,12],[3,2,1,2,6],[3,2,0,1,4],[3,0,4,1,2],[3,3,5,0,10],[3,2,2,5,11],[3,1,3,1,8],[3,4,3,0,1],[3,0,4,5,2],[3,2,2,0,1],[3,2,2,4,8],[3,2,3,5,8],[3,3,5,4,7],[3,3,2,3,3],[3,3,2,2,4],[3,1,4,1,5],[3,2,0,1,2],[3,4,0,0,6],[3,1,0,1,4],[3,1,3,2,2],[4,0,2,3,7],[4,4,2,0,10],[4,1,5,0,10],[4,3,5,3,5],[4,2,2,4,12],[4,0,5,3,8],[4,0,2,5,7],[4,0,4,3,6],[4,1,5,3,10],[4,0,3,5,11],[4,0,2,2,8],[4,1,2,2,4],[4,0,4,3,4],[4,1,0,5,2],[4,0,2,0,6],[4,0,4,0,6],[4,3,5,4,4],[4,1,0,0,3],[4,1,2,2,4],[4,2,4,5,2],[4,4,3,0,3],[4,2,2,3,5],[4,0,2,4,12],[5,0,3,5,11],[5,2,4,0,6],[5,3,4,2,5],[5,1,2,4,11],[5,3,3,3,1],[5,2,0,3,6],[5,0,3,4,7],[5,2,5,4,5],[5,1,4,5,4],[5,3,3,0,6],[5,0,1,3,4],[5,1,2,0,11],[5,0,2,1,6],[6,1,2,4,5],[6,2,3,4,5],[6,0,5,3,2],[6,2,2,5,4],[6,3,3,0,8],[6,2,1,2,4],[6,1,3,4,6],[6,2,1,2,6],[6,0,3,1,5],[6,0,0,5,4],[6,0,2,1,12],[6,3,4,4,3],[6,3,3,2,2],[6,0,0,5,3],[6,0,2,0,5],[6,4,2,5,12],[6,0,5,0,8],[6,1,2,2,8],[6,0,0,3,1],[7,1,0,0,2],[7,0,2,1,11],[7,0,4,1,3],[7,2,0,4,7],[7,1,0,3,9],[7,4,1,2,5],[7,2,2,5,1],[7,2,0,2,4],[7,0,3,4,3],[7,1,0,5,1],[7,0,3,2,5],[7,3,3,0,12],[7,3,3,5,5],[7,1,3,4,4],[7,4,0,1,3],[7,3,0,4,3],[8,4,4,3,5],[8,0,0,3,12],[8,1,5,3,9],[8,4,0,5,1],[8,0,1,1,3],[8,2,5,0,10],[8,3,5,4,11],[8,1,0,5,3],[8,0,2,4,5],[8,4,2,3,8],[8,0,1,0,3],[8,1,5,3,6],[8,3,1,4,4],[8,0,0,2,2],[8,3,0,0,7],[8,1,3,0,9],[9,2,0,3,6],[9,0,3,4,1],[9,1,0,5,5],[9,4,2,4,1],[9,0,4,4,6],[9,0,0,0,7],[9,2,2,1,2],[9,0,2,5,12],[9,4,0,1,8],[9,1,2,4,3],[9,3,2,2,3],[9,0,4,4,4],[9,0,0,2,1],[9,4,5,3,10],[9,1,5,2,8],[9,1,1,2,5],[9,0,5,3,12],[9,0,0,5,7],[9,1,2,5,7],[9,4,4,3,6],[9,1,5,4,3],[9,4,1,3,1],[9,0,0,1,8],[9,4,2,0,11],[10,0,2,5,6],[10,3,2,5,2],[10,4,5,5,9],[10,4,3,0,10],[10,2,3,2,5],[10,0,5,0,15],[10,4,4,3,7],[10,4,0,0,6],[10,0,1,2,1],[10,1,2,4,5],[10,0,3,0,3],[10,2,3,1,9],[10,0,2,3,13],[10,0,3,0,10],[10,4,5,5,10],[10,1,2,2,2],[10,2,5,3,6],[10,3,3,1,10],[10,0,5,3,10],[10,0,2,5,13],[10,1,1,0,7],[10,3,2,0,14],[10,1,5,2,15],[11,2,4,2,2],[11,2,0,5,5],[11,2,4,1,7],[11,2,3,2,14],[11,2,4,5,1],[11,0,0,3,6],[11,3,0,2,3],[11,3,2,2,6],[11,4,5,2,10],[11,3,4,3,3],[11,3,5,1,3],[11,2,5,3,15],[11,1,5,3,11],[11,0,0,2,11],[11,0,3,3,14],[11,0,5,1,7],[11,4,2,4,13],[11,0,1,0,6]];
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const M=v=>(v/1e6).toFixed(1)+"M",f=v=>Math.round(v).toLocaleString("en-US");
+const sel=document.getElementById("rg");["All Regions",...RG].forEach(x=>sel.add(new Option(x,x)));
+const rev=r=>r[4]*P[r[2]][1],prf=r=>r[4]*(P[r[2]][1]-P[r[2]][2]);
+const sum=(rows,fn)=>rows.reduce((a,r)=>a+fn(r),0);
+Chart.defaults.font.family="Arial";Chart.defaults.color=css("--mu");Chart.defaults.maintainAspectRatio=false;
+const ax=(y)=>({grid:{color:css("--grid")},ticks:{callback:v=>M(v)}});
+const mk=(id,type,labels,sets,o={})=>new Chart(id,{type,data:{labels,datasets:sets},options:Object.assign({plugins:{legend:{display:sets.length>1||type=="pie",position:"bottom"}},scales:type=="pie"?{}:{[o.indexAxis=="y"?"x":"y"]:ax(),[o.indexAxis=="y"?"y":"x"]:{grid:{display:false}}}},o)});
+const navy=css("--navy"),teal=css("--teal"),gold=css("--gold");
+const ch=[mk("c1","line",MO,[{label:"Revenue",data:[],borderColor:navy,backgroundColor:navy,tension:.25},{label:"Profit",data:[],borderColor:teal,backgroundColor:teal,tension:.25}]),
+mk("c2","bar",RG,[{label:"Revenue",data:[],backgroundColor:teal}]),
+mk("c3","bar",P.map(p=>p[0]),[{label:"Revenue",data:[],backgroundColor:navy}],{indexAxis:"y"}),
+mk("c4","pie",CA,[{data:[],backgroundColor:[navy,teal,gold],borderWidth:0}]),
+mk("c5","bar",PE,[{label:"Revenue",data:[],backgroundColor:gold}])];
+function upd(){const s=sel.value,rows=s=="All Regions"?R:R.filter(r=>RG[r[1]]==s);
+const tr=sum(rows,rev),tp=sum(rows,prf),n=rows.length,u=sum(rows,r=>r[4]);
+const K=[["TOTAL REVENUE (TSh)",M(tr)],["TOTAL PROFIT (TSh)",M(tp)],["PROFIT MARGIN",tr?(tp/tr*100).toFixed(1)+"%":"0%"],["ORDERS",f(n)],["UNITS SOLD",f(u)],["AVG ORDER VALUE",n?f(tr/n/1000)+"K":"0K"]];
+document.getElementById("kp").innerHTML=K.map(k=>`<div class="k"><small>${k[0]}</small><b>${k[1]}</b></div>`).join("");
+const by=(src,i,len,fn)=>Array.from({length:len},(_,j)=>sum(src.filter(r=>r[i]==j),fn));
+ch[0].data.datasets[0].data=by(rows,0,12,rev);ch[0].data.datasets[1].data=by(rows,0,12,prf);
+ch[1].data.datasets[0].data=by(R,1,5,rev);ch[2].data.datasets[0].data=by(rows,2,6,rev);
+ch[3].data.datasets[0].data=CA.map(c=>sum(rows.filter(r=>P[r[2]][3]==c),rev));
+ch[4].data.datasets[0].data=by(rows,3,6,rev);ch.forEach(c=>c.update());}
+sel.onchange=upd;upd();
+</script></body></html>
