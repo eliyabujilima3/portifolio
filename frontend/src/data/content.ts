@@ -135,19 +135,6 @@ export const skillCategories: SkillCategory[] = [
 
 export const projects: Project[] = [
   {
-    id: "techmart-dashboard",
-    title: "TechMart Sales Dashboard",
-    description:
-      "Interactive sales analytics dashboard for a fictional e-commerce company. 240 orders analyzed by region, product, category, and salesperson with real-time KPI updates and responsive charts.",
-    image: "/projects/techmart-dashboard.svg",
-    technologies: ["HTML5", "Chart.js", "CSS3", "JavaScript", "Data Visualization"],
-    githubUrl: "https://github.com/eliyabujilima3/portifolio/blob/main/projects/techmart_dashboard.html",
-    liveUrl: "https://portifolio-theta-sandy-36.vercel.app/projects/techmart_dashboard.html",
-    category: "Data Science",
-    completionDate: "2026-10",
-    featured: true,
-  },
-  {
     id: "farm-to-feed",
     title: "Farm to Feed — Shopping Basket Recommendation",
     description:
@@ -182,6 +169,18 @@ export const projects: Project[] = [
     category: "Data Science",
     completionDate: "2026-03",
     featured: true,
+  },
+  {
+    id: "techmart-dashboard",
+    title: "TechMart Sales Dashboard",
+    description:
+      "Interactive sales analytics dashboard for a fictional e-commerce company. 240 orders analyzed by region, product, category, and salesperson with real-time KPI updates and responsive charts using Chart.js.",
+    image: "/projects/techmart-dashboard.svg",
+    technologies: ["HTML5", "Chart.js", "CSS3", "JavaScript", "Data Visualization"],
+    githubUrl: "https://github.com/eliyabujilima3/portifolio/tree/main/projects",
+    liveUrl: "https://github.com/eliyabujilima3/portifolio/blob/main/projects/techmart_dashboard.html",
+    category: "Data Science",
+    completionDate: "2026-10",
   },
   {
     id: "smart-expense-tracker",
