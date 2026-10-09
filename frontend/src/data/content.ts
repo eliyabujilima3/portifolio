@@ -10,11 +10,11 @@ import type {
 } from "../types";
 
 /**
- * ────────────────────────────────────────────────────────────────────────────
+ * ────────────────────────────────────────────────────────────────
  *  EDIT ME: This file holds every piece of text/content shown on
  *  the site. Replace placeholder values (marked "[Placeholder]")
  *  with real details, then swap the sample images/links.
- * ────────────────────────────────────────────────────────────────────────────
+ * ────────────────────────────────────────────────────────────────
  */
 
 export const profile = {
@@ -43,8 +43,8 @@ export const profile = {
 
 export const about = {
   bio: [
-    "I'm a third-year Data Science undergraduate at the Eastern Africa Statistical Training Centre (EASTC), Tanzania, with hands-on experience across machine learning, data analysis, and full-stac...",
-    "My work spans predictive modelling on real-world datasets, building web applications end-to-end, and translating messy data into decisions people can act on. I've put these skills to the test...",
+    "I'm a third-year Data Science undergraduate at the Eastern Africa Statistical Training Centre (EASTC), Tanzania, with hands-on experience across machine learning, data analysis, and full-stack development.",
+    "My work spans predictive modelling on real-world datasets, building web applications end-to-end, and translating messy data into decisions people can act on. I've put these skills to the test in competitions and real-world projects.",
     "I care about building things that are useful, well-engineered, and easy to maintain — whether that's a forecasting model, a dashboard, or the API behind it.",
   ],
   mission:
@@ -134,6 +134,19 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    id: "techmart-dashboard",
+    title: "TechMart Sales Dashboard",
+    description:
+      "Interactive sales analytics dashboard for a fictional e-commerce company. 240 orders analyzed by region, product, category, and salesperson with real-time KPI updates and responsive charts.",
+    image: "/projects/techmart-dashboard.svg",
+    technologies: ["HTML5", "Chart.js", "CSS3", "JavaScript", "Data Visualization"],
+    githubUrl: "https://github.com/eliyabujilima3/portifolio/blob/main/projects/techmart_dashboard.html",
+    liveUrl: "https://portifolio-theta-sandy-36.vercel.app/projects/techmart_dashboard.html",
+    category: "Data Science",
+    completionDate: "2026-10",
+    featured: true,
+  },
   {
     id: "farm-to-feed",
     title: "Farm to Feed — Shopping Basket Recommendation",
