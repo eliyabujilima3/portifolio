@@ -51,11 +51,11 @@ h1, h2, h3, h4, .font-display {
 }
 
 .btn-outline {
-  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-navy dark:border-white text-navy dark:text-white font-semibold hover:bg-navy hover:text-white dark:hover:bg-white dark:hover:text-navy transition-colors;
+  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-navy dark:border-white text-navy dark:text-white font-semibold hover:bg-navy hover:text-white dark:hover:bg-white dark:hover:text-navy transition-all duration-200;
 }
 
 .card {
-  @apply bg-white dark:bg-navy-light rounded-2xl shadow-card dark:shadow-card-dark border border-gray-100 dark:border-white/5 transition-colors duration-300;
+  @apply bg-white dark:bg-slate-900 rounded-2xl shadow-card dark:shadow-card-dark border border-gray-100 dark:border-white/5 transition-colors duration-300;
 }
 
 /* Added palette and base styles */
